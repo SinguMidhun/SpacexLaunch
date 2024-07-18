@@ -1,0 +1,761 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.LaunchDetailsFragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_margin="8dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/detail_mission_patch"
+                android:layout_width="90dp"
+                android:layout_height="90dp"
+                android:padding="8dp"
+                android:scaleType="fitXY"
+                />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:padding="8dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/details_mission_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:maxLines="1"
+                    android:ellipsize="end"
+                    tools:text="Mission Name"
+                    android:textSize="16sp"/>
+
+                <TextView
+                    android:id="@+id/details_rocket_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    tools:text="Rocket Name"
+                    android:maxLines="1"
+                    android:ellipsize="end"
+                    android:textSize="16sp"/>
+
+                <TextView
+                    android:id="@+id/details_launch_year"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    tools:text="Launch Year"
+                    android:maxLines="1"
+                    android:ellipsize="end"
+                    android:textSize="16sp"/>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <ToggleButton
+            android:id="@+id/fav_toggle_btn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textOff="Add to fav"
+            android:textOn="Remove from Fav"
+            />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Rocket Details"
+            android:textSize="16sp"
+            android:layout_marginVertical="4dp"
+            android:textStyle="bold"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Rocket Id : "
+                android:textSize="14dp"
+                android:textStyle="bold"/>
+
+            <TextView
+                android:id="@+id/rocket_id"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                tools:text="Rocket Id"
+                android:maxLines="1"
+                android:ellipsize="end"
+                android:textSize="14dp"/>
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Rocket Name : "
+                android:textSize="14dp"
+                android:textStyle="bold"/>
+
+            <TextView
+                android:id="@+id/rocket_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                tools:text="Rocket Name"
+                android:maxLines="1"
+                android:ellipsize="end"
+                android:textSize="14dp"/>
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Rocket Type : "
+                android:textSize="14dp"
+                android:textStyle="bold"/>
+
+            <TextView
+                android:id="@+id/rocket_type"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                tools:text="Rocket Type"
+                android:maxLines="1"
+                android:ellipsize="end"
+                android:textSize="14dp"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Launch Year : "
+                android:textSize="14dp"
+                android:textStyle="bold"/>
+
+            <TextView
+                android:id="@+id/launch_year"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                tools:text="Launch Year"
+                android:maxLines="1"
+                android:ellipsize="end"
+                android:textSize="14dp"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="UTC Date : "
+                android:textSize="14dp"
+                android:textStyle="bold"/>
+
+            <TextView
+                android:id="@+id/launch_date_utc"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                tools:text="UTC date"
+                android:maxLines="1"
+                android:ellipsize="end"
+                android:textSize="14dp"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Local Date : "
+                android:textSize="14dp"
+                android:textStyle="bold"/>
+
+            <TextView
+                android:id="@+id/launch_date_local"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                tools:text="Local Date"
+                android:maxLines="1"
+                android:ellipsize="end"
+                android:textSize="14dp"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Details : "
+                android:textSize="14dp"
+                android:textStyle="bold"/>
+
+            <TextView
+                android:id="@+id/details"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                tools:text="Details"
+                android:ellipsize="end"
+                android:textSize="14dp"/>
+
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="First Stage"
+            android:textSize="16sp"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="4dp"
+            android:textStyle="bold"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Core Serial : "
+                android:textSize="14dp"
+                android:textStyle="bold"/>
+
+            <TextView
+                android:id="@+id/core_serial"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                tools:text="Core Serial"
+                android:maxLines="1"
+                android:ellipsize="end"
+                android:textSize="14dp"/>
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Flight : "
+                android:textSize="14dp"
+                android:textStyle="bold"/>
+
+            <TextView
+                android:id="@+id/flight"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                tools:text="Flight"
+                android:maxLines="1"
+                android:ellipsize="end"
+                android:textSize="14dp"/>
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Block : "
+                android:textSize="14dp"
+                android:textStyle="bold"/>
+
+            <TextView
+                android:id="@+id/block"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                tools:text="Block"
+                android:maxLines="1"
+                android:ellipsize="end"
+                android:textSize="14dp"/>
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Landing Type : "
+                android:textSize="14dp"
+                android:textStyle="bold"/>
+
+            <TextView
+                android:id="@+id/landing_type"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:maxLines="1"
+                android:ellipsize="end"
+                android:textSize="14dp"/>
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Loading Vehicle : "
+                android:textSize="14dp"
+                android:textStyle="bold"/>
+
+            <TextView
+                android:id="@+id/landing_vehicle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:maxLines="1"
+                android:ellipsize="end"
+                android:textSize="14dp"/>
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Gridfins : "
+                android:textSize="14dp"
+                android:textStyle="bold"/>
+
+            <TextView
+                android:id="@+id/gridfins"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:maxLines="1"
+                android:ellipsize="end"
+                android:textSize="14dp"/>
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Legs : "
+                android:textSize="14dp"
+                android:textStyle="bold"/>
+
+            <TextView
+                android:id="@+id/legs"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:maxLines="1"
+                android:ellipsize="end"
+                android:textSize="14dp"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Reused : "
+                android:textSize="14dp"
+                android:textStyle="bold"/>
+
+            <TextView
+                android:id="@+id/reused"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:maxLines="1"
+                android:ellipsize="end"
+                android:textSize="14dp"/>
+
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Second Stage"
+            android:textSize="16sp"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="4dp"
+            android:textStyle="bold"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Payload id : "
+                android:textSize="14dp"
+                android:textStyle="bold"/>
+
+            <TextView
+                android:id="@+id/payload_id"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:maxLines="1"
+                android:ellipsize="end"
+                android:textSize="14dp"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Nationality : "
+                android:textSize="14dp"
+                android:textStyle="bold"/>
+
+            <TextView
+                android:id="@+id/nationality"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:maxLines="1"
+                android:ellipsize="end"
+                android:textSize="14dp"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Manufacturer : "
+                android:textSize="14dp"
+                android:textStyle="bold"/>
+
+            <TextView
+                android:id="@+id/manufacturer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:maxLines="1"
+                android:ellipsize="end"
+                android:textSize="14dp"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Payload Type : "
+                android:textSize="14dp"
+                android:textStyle="bold"/>
+
+            <TextView
+                android:id="@+id/payload_type"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:maxLines="1"
+                android:ellipsize="end"
+                android:textSize="14dp"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Payload Mass Kg : "
+                android:textSize="14dp"
+                android:textStyle="bold"/>
+
+            <TextView
+                android:id="@+id/payload_mass_kg"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:maxLines="1"
+                android:ellipsize="end"
+                android:textSize="14dp"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Payload Mass Lbs : "
+                android:textSize="14dp"
+                android:textStyle="bold"/>
+
+            <TextView
+                android:id="@+id/payload_mass_lbs"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:maxLines="1"
+                android:ellipsize="end"
+                android:textSize="14dp"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Orbit : "
+                android:textSize="14dp"
+                android:textStyle="bold"/>
+
+            <TextView
+                android:id="@+id/orbit"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:maxLines="1"
+                android:ellipsize="end"
+                android:textSize="14dp"/>
+
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Launch Site Details"
+            android:textSize="16sp"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="4dp"
+            android:textStyle="bold"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Site Id : "
+                android:textSize="14dp"
+                android:textStyle="bold"/>
+
+            <TextView
+                android:id="@+id/site_id"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:maxLines="1"
+                android:ellipsize="end"
+                android:textSize="14dp"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Site Name : "
+                android:textSize="14dp"
+                android:textStyle="bold"/>
+
+            <TextView
+                android:id="@+id/site_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:maxLines="1"
+                android:ellipsize="end"
+                android:textSize="14dp"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Site Full Name : "
+                android:textSize="14dp"
+                android:textStyle="bold"/>
+
+            <TextView
+                android:id="@+id/site_name_long"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:maxLines="2"
+                android:ellipsize="end"
+                android:textSize="14dp"/>
+
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Links Details"
+            android:textSize="16sp"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="4dp"
+            android:textStyle="bold"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Mission Patch Small : "
+                android:textSize="14dp"
+                android:textStyle="bold"/>
+
+            <TextView
+                android:id="@+id/mission_patch_small"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:maxLines="2"
+                android:autoLink="web"
+                android:ellipsize="end"
+                android:textSize="14dp"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Article Link : "
+                android:textSize="14dp"
+                android:textStyle="bold"/>
+
+            <TextView
+                android:id="@+id/article_link"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:maxLines="2"
+                android:autoLink="web"
+                android:ellipsize="end"
+                android:textSize="14dp"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Wikipedia : "
+                android:textSize="14dp"
+                android:textStyle="bold"/>
+
+            <TextView
+                android:id="@+id/wikipedia"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:maxLines="2"
+                android:autoLink="web"
+                android:ellipsize="end"
+                android:textSize="14dp"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Youtube Link : "
+                android:textSize="14dp"
+                android:textStyle="bold"/>
+
+            <TextView
+                android:id="@+id/video_link"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:maxLines="2"
+                android:autoLink="web"
+                android:ellipsize="end"
+                android:textSize="14dp"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</ScrollView>
