@@ -8,11 +8,10 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import com.kukufm.midhun.spacex.R
-import com.kukufm.midhun.spacex.databinding.FragmentHomeScreenBinding
 import com.kukufm.midhun.spacex.databinding.FragmentLaunchDetailsBinding
 import com.kukufm.midhun.spacex.models.LaunchInfoModel
 import com.kukufm.midhun.spacex.models.room.FavTable
-import com.kukufm.midhun.spacex.repository.room.FavDatabase
+import com.kukufm.midhun.spacex.repository.room.LocalDatabase
 import com.kukufm.midhun.spacex.utils.NetworkStates
 import com.kukufm.midhun.spacex.viewmodels.LaunchDetailsViewModel
 import com.squareup.picasso.Picasso
@@ -24,7 +23,7 @@ class LaunchDetailsFragment : Fragment() {
 
     private lateinit var viewModel: LaunchDetailsViewModel
     private lateinit var selectedItemModel : LaunchInfoModel
-    private lateinit var favDatabase: FavDatabase
+    private lateinit var localDatabase: LocalDatabase
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -38,14 +37,14 @@ class LaunchDetailsFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         viewModel = ViewModelProvider(requireActivity())[LaunchDetailsViewModel::class.java]
         selectedItemModel = viewModel.selectedLaunchDetailItem!!
-        favDatabase = FavDatabase.getDatabase(requireContext())
+        localDatabase = LocalDatabase.getDatabase(requireContext())
 
         //check if it is liked already
-        viewModel.checkIfAlreadyLiked(selectedItemModel.flight_number,favDatabase)
+        viewModel.checkIfAlreadyLiked(selectedItemModel.flight_number,localDatabase)
         observeFavStatusChange()
 
         Picasso.get()
-            .load(selectedItemModel.links.mission_patch)
+            .load(selectedItemModel.links?.mission_patch)
             .error(R.drawable.ic_launcher_background)
             .placeholder(R.drawable.ic_launcher_background)
             .into(binding.detailMissionPatch)
@@ -53,44 +52,44 @@ class LaunchDetailsFragment : Fragment() {
         binding.apply {
             detailsLaunchYear.text = selectedItemModel.launch_year?:""
             detailsMissionName.text = selectedItemModel.mission_name?:""
-            detailsRocketName.text = selectedItemModel.rocket.rocket_name?:""
-            rocketId.text = selectedItemModel.rocket.rocket_id?:""
-            rocketName.text = selectedItemModel.rocket.rocket_name?:""
-            rocketType.text = selectedItemModel.rocket.rocket_type?:""
+            detailsRocketName.text = selectedItemModel.rocket?.rocket_name?:""
+            rocketId.text = selectedItemModel.rocket?.rocket_id?:""
+            rocketName.text = selectedItemModel.rocket?.rocket_name?:""
+            rocketType.text = selectedItemModel.rocket?.rocket_type?:""
             launchYear.text = selectedItemModel.launch_year?:""
             launchDateUtc.text = selectedItemModel.launch_date_utc?:""
             launchDateLocal.text = selectedItemModel.launch_date_local?:""
             details.text = selectedItemModel.details?:""
-            coreSerial.text = selectedItemModel.rocket.first_stage.cores[0].core_serial?:""
-            flight.text = selectedItemModel.rocket.first_stage.cores[0].flight.toString()?:""
-            block.text = selectedItemModel.rocket.first_stage.cores[0].block.toString()?:""
-            landingType.text = selectedItemModel.rocket.first_stage.cores[0].landing_type?:""
-            landingVehicle.text = selectedItemModel.rocket.first_stage.cores[0].landing_vehicle?:""
-            gridfins.text = selectedItemModel.rocket.first_stage.cores[0].gridfins.toString()?:""
-            legs.text = selectedItemModel.rocket.first_stage.cores[0].legs.toString()?:""
-            reused.text = selectedItemModel.rocket.first_stage.cores[0].reused.toString()?:""
-            payloadId.text = selectedItemModel.rocket.second_stage.payloads[0].payload_id?:""
-            nationality.text = selectedItemModel.rocket.second_stage.payloads[0].nationality?:""
-            manufacturer.text = selectedItemModel.rocket.second_stage.payloads[0].manufacturer?:""
-            nationality.text = selectedItemModel.rocket.second_stage.payloads[0].nationality?:""
-            payloadType.text = selectedItemModel.rocket.second_stage.payloads[0].payload_type?:""
-            payloadMassKg.text = selectedItemModel.rocket.second_stage.payloads[0].payload_mass_kg.toString()?:""
-            payloadMassLbs.text = selectedItemModel.rocket.second_stage.payloads[0].payload_mass_lbs.toString()?:""
-            orbit.text = selectedItemModel.rocket.second_stage.payloads[0].orbit?:""
-            siteId.text = selectedItemModel.launch_site.site_id?:""
-            siteName.text = selectedItemModel.launch_site.site_name?:""
-            siteNameLong.text = selectedItemModel.launch_site.site_name_long?:""
-            missionPatchSmall.text = selectedItemModel.links.mission_patch_small?:""
-            articleLink.text = selectedItemModel.links.article_link?:""
-            wikipedia.text = selectedItemModel.links.wikipedia?:""
-            videoLink.text = selectedItemModel.links.video_link?:""
+            coreSerial.text = selectedItemModel.rocket?.first_stage!!.cores[0].core_serial?:""
+            flight.text = selectedItemModel.rocket?.first_stage!!.cores[0].flight.toString()?:""
+            block.text = selectedItemModel.rocket?.first_stage!!.cores[0].block.toString()?:""
+            landingType.text = selectedItemModel.rocket?.first_stage!!.cores[0].landing_type?:""
+            landingVehicle.text = selectedItemModel.rocket?.first_stage!!.cores[0].landing_vehicle?:""
+            gridfins.text = selectedItemModel.rocket?.first_stage!!.cores[0].gridfins.toString()?:""
+            legs.text = selectedItemModel.rocket?.first_stage!!.cores[0].legs.toString()?:""
+            reused.text = selectedItemModel.rocket?.first_stage!!.cores[0].reused.toString()?:""
+            payloadId.text = selectedItemModel.rocket?.second_stage!!.payloads[0].payload_id?:""
+            nationality.text = selectedItemModel.rocket?.second_stage!!.payloads[0].nationality?:""
+            manufacturer.text = selectedItemModel.rocket?.second_stage!!.payloads[0].manufacturer?:""
+            nationality.text = selectedItemModel.rocket?.second_stage!!.payloads[0].nationality?:""
+            payloadType.text = selectedItemModel.rocket?.second_stage!!.payloads[0].payload_type?:""
+            payloadMassKg.text = selectedItemModel.rocket?.second_stage!!.payloads[0].payload_mass_kg.toString()?:""
+            payloadMassLbs.text = selectedItemModel.rocket?.second_stage!!.payloads[0].payload_mass_lbs.toString()?:""
+            orbit.text = selectedItemModel.rocket?.second_stage!!.payloads[0].orbit?:""
+            siteId.text = selectedItemModel.launch_site?.site_id?:""
+            siteName.text = selectedItemModel.launch_site?.site_name?:""
+            siteNameLong.text = selectedItemModel.launch_site?.site_name_long?:""
+            missionPatchSmall.text = selectedItemModel.links?.mission_patch_small?:""
+            articleLink.text = selectedItemModel.links?.article_link?:""
+            wikipedia.text = selectedItemModel.links?.wikipedia?:""
+            videoLink.text = selectedItemModel.links?.video_link?:""
         }
 
         binding.favToggleBtn.setOnClickListener{
             if(binding.favToggleBtn.isChecked){
-                viewModel.addToFavourites(FavTable(selectedItemModel.flight_number),favDatabase)
+                viewModel.addToFavourites(FavTable(selectedItemModel.flight_number),localDatabase)
             }else{
-                viewModel.removeFromFavourites(FavTable(selectedItemModel.flight_number),favDatabase)
+                viewModel.removeFromFavourites(FavTable(selectedItemModel.flight_number),localDatabase)
             }
         }
 

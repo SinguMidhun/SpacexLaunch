@@ -4,20 +4,18 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.kukufm.midhun.spacex.models.LaunchInfoModel
 import com.kukufm.midhun.spacex.models.room.FavTable
-import com.kukufm.midhun.spacex.repository.localapi.LocalRepository
-import com.kukufm.midhun.spacex.repository.remoteapi.RemoteRepository
-import com.kukufm.midhun.spacex.repository.room.FavDatabase
+import com.kukufm.midhun.spacex.repository.Repository
+import com.kukufm.midhun.spacex.repository.room.LocalDatabase
 import kotlinx.coroutines.launch
 
 class LaunchDetailsViewModel : ViewModel() {
 
-    val repository = RemoteRepository()
-    val localRepository = LocalRepository()
+    val repo = Repository()
 
-    val bulkLaunchDetails = repository.bulkLaunchDetails
-    val launchDetailsByName = repository.launchDetailsByName
+    val bulkLaunchDetails = repo.bulkLaunchDetails
+    val launchDetailsByName = repo.launchDetailsByName
 
-    val likedStatus = localRepository.likedStatus
+    val likedStatus = repo.likedStatus
 
     var selectedLaunchDetailItem : LaunchInfoModel? = null
         private set
@@ -25,31 +23,49 @@ class LaunchDetailsViewModel : ViewModel() {
 
     fun getAllLaucheDetails(){
         viewModelScope.launch {
-            repository.getAllLaucheDetails()
+            repo.getAllLaucheDetails()
         }
     }
 
     fun getLaunchDetailsByName(mission_name : String){
         viewModelScope.launch {
-            repository.getLaunchDetailsByName(mission_name)
+            repo.getLaunchDetailsByName(mission_name)
         }
     }
 
-    fun checkIfAlreadyLiked(flightNumber : Int, favDatabase: FavDatabase){
+    fun getAllLaunchDetailsFromLocal(localDatabase: LocalDatabase){
         viewModelScope.launch {
-            localRepository.checkIfCharacterFavourite(flightNumber,favDatabase)
+            repo.getAllLaunchDetailsFromLocal(localDatabase)
         }
     }
 
-    fun addToFavourites(favModel : FavTable, favDatabase: FavDatabase){
+    fun getLaunchDetailsByNameFromLocal(mission_name : String, localDatabase: LocalDatabase){
         viewModelScope.launch {
-            localRepository.addToFavourites(favModel, favDatabase)
+            repo.getLaunchDetailsByNameFromLocal(mission_name, localDatabase)
         }
     }
 
-    fun removeFromFavourites(favModel : FavTable, favDatabase: FavDatabase){
+    fun checkIfAlreadyLiked(flightNumber : Int, localDatabase: LocalDatabase){
         viewModelScope.launch {
-            localRepository.removeFromFavourites(favModel, favDatabase)
+            repo.checkIfCharacterFavourite(flightNumber,localDatabase)
+        }
+    }
+
+    fun addToFavourites(favModel : FavTable, localDatabase: LocalDatabase){
+        viewModelScope.launch {
+            repo.addToFavourites(favModel, localDatabase)
+        }
+    }
+
+    fun addLaunchInfoModel(model : List<LaunchInfoModel>, localDatabase: LocalDatabase){
+        viewModelScope.launch {
+            repo.addLaunchInfoModel(model, localDatabase)
+        }
+    }
+
+    fun removeFromFavourites(favModel : FavTable, localDatabase: LocalDatabase){
+        viewModelScope.launch {
+            repo.removeFromFavourites(favModel, localDatabase)
         }
     }
 

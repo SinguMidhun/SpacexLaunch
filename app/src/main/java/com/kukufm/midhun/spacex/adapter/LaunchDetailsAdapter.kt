@@ -26,9 +26,9 @@ class LaunchDetailsAdapter(
         holder.binder.let {
             it.launchYear.text = launchDetails.launch_year
             it.missionName.text = launchDetails.mission_name
-            it.rocketName.text = launchDetails.rocket.rocket_name
+            it.rocketName.text = launchDetails.rocket?.rocket_name
             Picasso.get()
-                .load(launchDetails.links.mission_patch)
+                .load(launchDetails.links?.mission_patch)
                 .error(R.drawable.ic_launcher_background)
                 .placeholder(R.drawable.ic_launcher_background)
                 .into(it.missionPatch)

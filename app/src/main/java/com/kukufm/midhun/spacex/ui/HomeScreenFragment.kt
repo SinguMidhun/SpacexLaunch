@@ -1,11 +1,13 @@
 package com.kukufm.midhun.spacex.ui
 
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.View.OnClickListener
+import android.view.View.VISIBLE
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.widget.addTextChangedListener
@@ -19,7 +21,9 @@ import com.kukufm.midhun.spacex.adapter.LaunchDetailsAdapter
 import com.kukufm.midhun.spacex.adapter.LaunchItemClickListner
 import com.kukufm.midhun.spacex.databinding.FragmentHomeScreenBinding
 import com.kukufm.midhun.spacex.models.LaunchInfoModel
+import com.kukufm.midhun.spacex.repository.room.LocalDatabase
 import com.kukufm.midhun.spacex.utils.NetworkStates
+import com.kukufm.midhun.spacex.utils.SharedPreference
 import com.kukufm.midhun.spacex.viewmodels.LaunchDetailsViewModel
 import kotlinx.coroutines.delay
 
@@ -31,6 +35,9 @@ class HomeScreenFragment : Fragment(), LaunchItemClickListner, OnClickListener{
 
     private lateinit var adapter: LaunchDetailsAdapter
     private lateinit var viewModel: LaunchDetailsViewModel
+    private lateinit var localDatabase: LocalDatabase
+    private lateinit var sharedPreferences: SharedPreferences
+    private var isLocalApiCalled = false
     private val launchDetailsList = arrayListOf<LaunchInfoModel>()
 
     override fun onCreateView(
@@ -46,19 +53,24 @@ class HomeScreenFragment : Fragment(), LaunchItemClickListner, OnClickListener{
         super.onViewCreated(view, savedInstanceState)
         viewModel = ViewModelProvider(requireActivity())[LaunchDetailsViewModel::class.java]
         adapter = LaunchDetailsAdapter(launchDetailsList,this)
+        localDatabase = LocalDatabase.getDatabase(requireContext())
+        sharedPreferences = SharedPreference.getSharedPrefRepoInstance()
 
         //call api and set observer
-        viewModel.getAllLaucheDetails()
+        if(SharedPreference.isDataSavedToLocal()){
+            // data is saved to room so fetch from room
+            viewModel.getAllLaunchDetailsFromLocal(localDatabase)
+        }else{
+            // data is not saved to room, so call remote api
+            viewModel.getAllLaucheDetails()
+        }
         observeForLaunchDetails()
 
         //setting up recycler view and adapter
         binding.rvHome.layoutManager = LinearLayoutManager(requireContext())
         binding.rvHome.adapter = adapter
 
-        binding.homeSearchBtn.apply {
-            setOnClickListener(this@HomeScreenFragment)
-        }
-
+        binding.homeSearchBtn.setOnClickListener(this)
         binding.homeSearchEdittext.apply {
             addTextChangedListener {
                 it?.let {
@@ -66,7 +78,12 @@ class HomeScreenFragment : Fragment(), LaunchItemClickListner, OnClickListener{
                     launchDetailsList.clear()
                     adapter.notifyDataSetChanged()
                     if(it.toString().isEmpty()){
-                        viewModel.getAllLaucheDetails()
+                        binding.homeProgress.visibility = VISIBLE
+                        if(SharedPreference.isDataSavedToLocal()){
+                            viewModel.getAllLaunchDetailsFromLocal(localDatabase)
+                        }else{
+                            viewModel.getAllLaucheDetails()
+                        }
                     }
                 }
             }
@@ -81,8 +98,12 @@ class HomeScreenFragment : Fragment(), LaunchItemClickListner, OnClickListener{
                 if(searchName.isEmpty()){
                     Toast.makeText(requireContext(),"Please enter name to search",Toast.LENGTH_SHORT).show()
                 }else{
+                    if(SharedPreference.isDataSavedToLocal()){
+                        viewModel.getLaunchDetailsByNameFromLocal(searchName,localDatabase)
+                    }else{
+                        viewModel.getLaunchDetailsByName(searchName)
+                    }
                     observeForSearchedLaunchDetails()
-                    viewModel.getLaunchDetailsByName(searchName)
                 }
             }
         }
@@ -96,6 +117,13 @@ class HomeScreenFragment : Fragment(), LaunchItemClickListner, OnClickListener{
                     if(it.data!=null){
                         launchDetailsList.clear()
                         launchDetailsList.addAll(it.data)
+                        if(!isLocalApiCalled){
+                            Log.d("MidhunSingu", "called")
+                            if(!SharedPreference.isDataSavedToLocal()){
+                                viewModel.addLaunchInfoModel(it.data,localDatabase)
+                            }
+                            isLocalApiCalled = true
+                        }
                         adapter.notifyDataSetChanged()
                     }
                 }

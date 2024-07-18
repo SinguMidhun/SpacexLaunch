@@ -24,7 +24,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Working in Offline"
-        android:visibility="gone"
+        android:visibility="visible"
         android:id="@+id/notify_offline_view"
         android:textAlignment="center"
         android:textColor="@color/black"
