@@ -11,7 +11,7 @@ android {
     defaultConfig {
         applicationId = "com.kukufm.midhun.spacex"
         minSdk = 24
-        targetSdk = 34
+        targetSdk = 33
         versionCode = 1
         versionName = "1.0"
 
@@ -20,11 +20,16 @@ android {
 
     buildTypes {
         release {
-            isMinifyEnabled = false
+            isMinifyEnabled = true
+            isDebuggable = false
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
+        }
+        debug {
+            isMinifyEnabled = false
+            isDebuggable = true
         }
     }
     compileOptions {
@@ -54,26 +59,26 @@ dependencies {
 
     //coroutines & lifecycles
     val coroutines_version = "1.6.0"
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutines_version")
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutines_version")
+    implementation(libs.kotlinx.coroutines.core)
+    implementation(libs.kotlinx.coroutines.android)
 
     val lifecycle_version1 = "2.8.3"
-    implementation("androidx.lifecycle:lifecycle-livedata-ktx:$lifecycle_version1")
-    implementation("androidx.lifecycle:lifecycle-runtime-ktx:$lifecycle_version1")
+    implementation(libs.androidx.lifecycle.livedata.ktx)
+    implementation(libs.androidx.lifecycle.runtime.ktx)
 
     //room
     val room_version = "2.6.1"
-    implementation("androidx.room:room-runtime:$room_version")
-    annotationProcessor("androidx.room:room-compiler:$room_version")
-    implementation("androidx.room:room-ktx:$room_version")
+    implementation(libs.androidx.room.runtime)
+    annotationProcessor(libs.androidx.room.compiler)
+    implementation(libs.androidx.room.ktx)
     kapt("androidx.room:room-compiler:$room_version")
 
     //Retrofit
     val retrofitVersion = "2.9.0"
-    implementation("com.squareup.retrofit2:retrofit:$retrofitVersion")
-    implementation("com.squareup.retrofit2:converter-gson:$retrofitVersion")
+    implementation(libs.retrofit)
+    implementation(libs.converter.gson)
 
     //Picasso
-    implementation("com.squareup.picasso:picasso:2.8")
+    implementation(libs.picasso)
 
 }
