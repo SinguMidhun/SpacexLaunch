@@ -52,7 +52,7 @@ class HomeScreenFragment : Fragment(), LaunchItemClickListner, OnClickListener{
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModel = ViewModelProvider(requireActivity())[LaunchDetailsViewModel::class.java]
-        adapter = LaunchDetailsAdapter(launchDetailsList,this)
+        adapter = LaunchDetailsAdapter(launchDetailsList,this,requireContext())
         localDatabase = LocalDatabase.getDatabase(requireContext())
         sharedPreferences = SharedPreference.getSharedPrefRepoInstance()
 
